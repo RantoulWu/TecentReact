@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React demo 4</title>
+    <script src = "https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+    <script src = "https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        .red{
+            color :royalblue
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type = "text/babel">
+        //es5 语法
+        var hello = React.createElement('h1',
+        {
+            //className:'red',
+            //name:'jack'
+        },"hello word"); 
+       
+        var name = 'jack';
+        var ele = <h1 className = 'red' name = 'jack' > js in html example : hello, {name} </h1>;
+        ReactDOM.render(
+           // <h1 className='red'name= 'jack'>Hello world!!!!</h1>,
+           ele,
+            document.getElementById('app')
+        );
+        /*ReactDOM.render(
+            hello,document.getElementById('app')
+            ); */
+        //ES6 语法， 需要 bible 进行解析 而且必须在script加入 type="text/bable" 才能解析！
+        /*ReactDOM.render(
+            <h1> Hello,world!ES6 </h1>,document.getElementById('app')
+        );*/
+       
+        //参数列表 ： 1.需要渲染的标签 2.渲染到哪里
+    </script>
+
+</body>
+</html>
