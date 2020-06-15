@@ -13,31 +13,39 @@
     </style>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app"> </div>
+    <div id="app2"> </div>
     <script type = "text/babel">
-        //es5 语法
-        var hello = React.createElement('h1',
-        {
-            //className:'red',
-            //name:'jack'
-        },"hello word"); 
+        /*
+       a function Component example
+       */
+       function Hello(k){ //无状态
+           return <div>
+            <h1>Hello,{k.name}</h1>
+            <p>age ： {k.age}</p>
+            <p>hobby ： hiking</p>
+            </div>
+           ;
+       }
+       ReactDOM.render(
+           <Hello name='Vivian' age = '23'/>,document.getElementById('app')); 
+      
+       /*
+       a class Component example
+       */
+       class HelloVivian extends React.Component{  //有状态 this 指向 React.Component 实例
+           //组件带有生命周期
+           render(){ // render 是非常基础的方法，类似return
+            return <div>
+                <h1> this is a {this.props.name}</h1>
+                <h2> Vivian is {this.props.age} years old</h2>
+                </div>
+           }
+       }
+       ReactDOM.render(
+           <HelloVivian name = 'class Component example' age = '23'/>,document.getElementById('app2')); 
        
-        var name = 'jack';
-        var ele = <h1 className = 'red' name = 'jack' > js in html example : hello, {name} </h1>;
-        ReactDOM.render(
-           // <h1 className='red'name= 'jack'>Hello world!!!!</h1>,
-           ele,
-            document.getElementById('app')
-        );
-        /*ReactDOM.render(
-            hello,document.getElementById('app')
-            ); */
-        //ES6 语法， 需要 bible 进行解析 而且必须在script加入 type="text/bable" 才能解析！
-        /*ReactDOM.render(
-            <h1> Hello,world!ES6 </h1>,document.getElementById('app')
-        );*/
-       
-        //参数列表 ： 1.需要渲染的标签 2.渲染到哪里
+      
     </script>
 
 </body>
