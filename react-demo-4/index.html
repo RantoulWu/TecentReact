@@ -14,36 +14,62 @@
 </head>
 <body>
     <div id="app"> </div>
-    <div id="app2"> </div>
     <script type = "text/babel">
-        /*
-       a function Component example
-       */
-       function Hello(k){ //无状态
-           return <div>
-            <h1>Hello,{k.name}</h1>
-            <p>age ： {k.age}</p>
-            <p>hobby ： hiking</p>
-            </div>
-           ;
-       }
-       ReactDOM.render(
-           <Hello name='Vivian' age = '23'/>,document.getElementById('app')); 
-      
-       /*
-       a class Component example
-       */
-       class HelloVivian extends React.Component{  //有状态 this 指向 React.Component 实例
+       
+       class HelloVivian extends React.Component{  
            //组件带有生命周期
-           render(){ // render 是非常基础的方法，类似return
-            return <div>
-                <h1> this is a {this.props.name}</h1>
-                <h2> Vivian is {this.props.age} years old</h2>
-                </div>
+           constructor (props){
+               // 初始化 props
+               console.log('初始化阶段！')
+               super(props);
+               // 初始化 state
+               this.state = {
+                   name : 'Vivian',
+                   age : 231
+               }
            }
+           componentWillMount(){ 
+               // 可以在其中发起一些ajax请求
+               console.log('组件加载前')
+           }
+           ComponentDiddMount(){
+            console.log('组件加载后')
+           }
+           updateUser=()=>{
+                //错误的语法，不会触发render（）！
+                //this.state.name = 'Time';
+               this.setState({
+                   name:'Tim',
+                   age:32
+               })
+           }
+           shouldComponentUpdate(){
+               // 一般开发时不用定义除非有特殊的业务场景！
+               console.log('数据是否需要更新')
+               return true;
+           }
+           componentWillUpdate(){
+            console.log('数据将要更新')
+           }
+           componentDidUpdate(){
+            console.log('数据已经更新')
+           }
+
+           render(){ 
+            console.log('组件加载 or 数据更新')
+            return <div>
+                <h1> This is {this.state.name}</h1>
+                <h2> Vivian is {this.state.age} years old</h2>
+                <button onClick = {this.updateUser}> click to update </button>
+                </div>
+                // onClick 绑定的函数 this.updateUser，注意只能写函数名，不能带上后边的（）！
+           // 同时 updateUser 函数声明为 = () =>{ 箭头函数，这样才能正确的指向我们的实例！
+           }
+           
        }
+
        ReactDOM.render(
-           <HelloVivian name = 'class Component example' age = '23'/>,document.getElementById('app2')); 
+           <HelloVivian name = 'class Component example' age = '23'/>,document.getElementById('app')); 
        
       
     </script>
