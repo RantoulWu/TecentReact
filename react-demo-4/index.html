@@ -13,31 +13,83 @@
     </style>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app"> </div>
     <script type = "text/babel">
-        //es5 语法
-        var hello = React.createElement('h1',
-        {
-            //className:'red',
-            //name:'jack'
-        },"hello word"); 
        
-        var name = 'jack';
-        var ele = <h1 className = 'red' name = 'jack' > js in html example : hello, {name} </h1>;
-        ReactDOM.render(
-           // <h1 className='red'name= 'jack'>Hello world!!!!</h1>,
-           ele,
-            document.getElementById('app')
-        );
-        /*ReactDOM.render(
-            hello,document.getElementById('app')
-            ); */
-        //ES6 语法， 需要 bible 进行解析 而且必须在script加入 type="text/bable" 才能解析！
-        /*ReactDOM.render(
-            <h1> Hello,world!ES6 </h1>,document.getElementById('app')
-        );*/
-       
-        //参数列表 ： 1.需要渲染的标签 2.渲染到哪里
+       class HelloVivian extends React.Component{  
+           //组件带有生命周期
+           constructor (props){
+               // 初始化 props
+               console.log('初始化阶段！')
+               super(props);
+               // 初始化 state
+               this.state = {
+                   name : 'Vivian',
+                   age : 231
+               }
+               // bind 方法用于改变作用域！
+               // 把bind 的方法的作用域指向当前组件的实例
+               this.updateUser2 = this.updateUser2.bind(this);
+           }
+           updateUser2(){ 
+                //需要在constructor中用bind绑定this！
+               this.setState({
+                   name:'Tom',
+                   age:12
+               }) 
+           }
+           updateUser3(){ 
+                //需要在constructor中用bind绑定this！
+               this.setState({
+                   name:'Titian',
+                   age:3420
+               }) 
+           }
+           updateUser4(){ 
+                //需要在constructor中用bind绑定this！
+               this.setState({
+                   name:'Tina',
+                   age:20
+               }) 
+           }
+           updateUser =()=>{
+                //错误的语法，不会触发render（）！
+                //this.state.name = 'Time';
+               this.setState({
+                   name:'Tim',
+                   age:32
+               }) 
+           }
+          
+           render(){ 
+            console.log('组件加载 or 数据更新')
+            return <div>
+                <h1> This is {this.state.name}</h1>
+                <h2> Vivian is {this.state.age} years old</h2>
+                <button onClick = {this.updateUser}> click to update to Tim</button>
+                <button onClick = {this.updateUser2}> click to update to Tom </button>
+                <button onClick = {() => this.updateUser3()}> click to update to Titian </button>
+                <button onClick = {this.updateUser4.bind(this)}> click to update to Tina </button>
+
+                </div>
+                // onClick 绑定的函数 this.updateUser，注意只能写函数名，不能带上后边的（）！
+           // 同时 updateUser 函数声明为 = () =>{ 箭头函数，这样才能正确的指向我们的实例 this 指针！
+            // react 中默认的很普通函数没有绑定this 指针，因此函数无法找到this 出现undefine
+
+            /**
+             * 四种绑定onClick的方法
+             * 1.箭头函数  最常用的方法！
+             * 2.普通函数 + constuctor 中绑定 bind（this）
+             * 3. onClick = {() => this.functionName()} 箭头调用
+             * 4. onClick = {this.functionName.bind(this)} 直接绑定
+             */
+           }
+           
+       }
+
+       ReactDOM.render(
+           <HelloVivian name = 'class Component example' age = '23'/>,document.getElementById('app')); 
+            
     </script>
 
 </body>
